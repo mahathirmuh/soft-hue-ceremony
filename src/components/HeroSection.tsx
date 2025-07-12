@@ -29,8 +29,10 @@ const HeroSection = () => {
             </p>
           </div>
 
-          <h1 className="font-serif text-6xl md:text-8xl font-bold text-foreground mb-4">
-            Cahya Maulida <span className="text-primary">&</span> Mahathir Muhammad
+          <h1 className="font-serif text-4xl md:text-6xl font-bold text-foreground mb-4 leading-tight">
+            <div>Cahya Maulida Saputri</div>
+            <div className="text-primary text-5xl md:text-7xl my-2">&</div>
+            <div>Mahathir Muhammad</div>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 font-light">
