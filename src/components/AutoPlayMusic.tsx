@@ -38,8 +38,11 @@ const AutoPlayMusic = () => {
       preload="auto"
       style={{ display: 'none' }}
     >
-      <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav" />
-      {/* Fallback for browsers that don't support the audio element */}
+      {/* Replace this source with your "Kalam Eineh | Ya Lel Ya Leli - Sherine" audio file */}
+      <source src="/kalam-eineh-sherine.mp3" type="audio/mpeg" />
+      <source src="/kalam-eineh-sherine.wav" type="audio/wav" />
+      {/* Fallback message */}
+      Your browser does not support the audio element.
     </audio>
   );
 };
