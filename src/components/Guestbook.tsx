@@ -28,20 +28,20 @@ const Guestbook = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      name: "Emily Johnson",
-      message: "Sarah and Michael, your love story is absolutely beautiful! Wishing you a lifetime of happiness and adventures together. Can't wait to celebrate with you! 💕",
+      name: "Indah Puspita Sari",
+      message: "Selamat menempuh kehidupan baru abanggg, terharu kakak.",
       timestamp: "2 days ago"
     },
     {
       id: 2,
-      name: "David & Lisa Chen",
-      message: "We are so excited to witness your special day! You two are perfect for each other and we couldn't be happier for you both. Here's to forever! 🥂",
+      name: "Muhammad Rafi'i",
+      message: "mantappsss jiwaa kak",
       timestamp: "1 week ago"
     },
     {
       id: 3,
-      name: "Jessica Williams",
-      message: "Congratulations to the most amazing couple! Sarah, you're going to be the most beautiful bride, and Michael, you're one lucky guy! Love you both! ❤️",
+      name: "Fauziah",
+      message: "MasyaAllah kak, akhirrnya penantiaan panjang",
       timestamp: "1 week ago"
     }
   ]);

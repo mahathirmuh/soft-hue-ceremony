@@ -138,4 +138,20 @@ All colors MUST be HSL.
     font-family: 'Amiri', 'Traditional Arabic', 'Times New Roman', serif;
     font-feature-settings: "liga" 1, "dlig" 1;
   }
+
+  /* Custom animations for fireworks */
+  @keyframes twinkle {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite alternate;
+  }
 }

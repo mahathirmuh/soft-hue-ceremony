@@ -30,7 +30,7 @@ const EventDetails = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Date</h3>
-                  <p className="text-lg text-muted-foreground">Saturday, June 15, 2024</p>
+                  <p className="text-lg text-muted-foreground">Saturday, June 6, 2026</p>
                 </div>
               </div>
             </Card>
@@ -42,8 +42,8 @@ const EventDetails = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">Time</h3>
-                  <p className="text-lg text-muted-foreground mb-1">Ceremony: 4:00 PM</p>
-                  <p className="text-lg text-muted-foreground">Reception: 6:00 PM</p>
+                  <p className="text-lg text-muted-foreground mb-1">Ceremony: 8:00 AM</p>
+                  <p className="text-lg text-muted-foreground">Reception: 9:00 AM</p>
                 </div>
               </div>
             </Card>
@@ -72,18 +72,6 @@ const EventDetails = () => {
               </div>
             </Card>
 
-            <Card className="p-8 bg-card shadow-soft border-border/50 hover:shadow-elegant transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-rose-gold/20 p-3 rounded-full">
-                  <Phone className="w-6 h-6 text-rose-gold" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Contact</h3>
-                  <p className="text-lg text-muted-foreground mb-1">Sarah: (555) 123-4567</p>
-                  <p className="text-lg text-muted-foreground">Michael: (555) 987-6543</p>
-                </div>
-              </div>
-            </Card>
           </div>
 
           {/* Venue Image */}
