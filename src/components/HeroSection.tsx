@@ -1,5 +1,5 @@
 import { Heart } from "lucide-react";
-import coupleHero from "@/assets/couple-hero.jpg";
+import animeHero from "@/assets/anime-hijabi-hero.jpg";
 
 const HeroSection = () => {
   return (
@@ -7,9 +7,9 @@ const HeroSection = () => {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <img 
-          src={coupleHero} 
-          alt="Sarah and Michael" 
-          className="w-full h-full object-cover opacity-20"
+          src={animeHero} 
+          alt="Cahya Maulida Saputri and Mahathir Muhammad" 
+          className="w-full h-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-gradient-hero opacity-80"></div>
       </div>
@@ -60,16 +60,47 @@ const HeroSection = () => {
               May 6, 2026
             </p>
             <p className="text-lg text-muted-foreground">
-              Garden Pavilion, Rosewood Estate
+              Masjid Agung Al-Ikhlas, Penajam Paser Utara
             </p>
           </div>
         </div>
       </div>
       
-      {/* Decorative Elements */}
+      {/* Decorative Elements with Batik Patterns */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-primary/10 rounded-full blur-xl animate-float"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-secondary/10 rounded-full blur-xl animate-float" style={{animationDelay: '1s'}}></div>
       <div className="absolute top-1/2 right-20 w-16 h-16 bg-accent/10 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
+      
+      {/* Batik-style decorative elements */}
+      <div className="absolute top-32 right-32 w-24 h-24 opacity-20 animate-float" style={{animationDelay: '3s'}}>
+        <svg viewBox="0 0 100 100" className="w-full h-full text-primary">
+          <pattern id="batik1" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="10" cy="10" r="3" fill="currentColor" opacity="0.3"/>
+            <path d="M5,5 Q10,0 15,5 Q10,10 5,5" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.5"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#batik1)"/>
+        </svg>
+      </div>
+      
+      <div className="absolute bottom-32 left-32 w-32 h-32 opacity-15 animate-float" style={{animationDelay: '4s'}}>
+        <svg viewBox="0 0 100 100" className="w-full h-full text-secondary">
+          <pattern id="batik2" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+            <polygon points="7.5,2 12,7.5 7.5,13 3,7.5" fill="currentColor" opacity="0.4"/>
+            <circle cx="7.5" cy="7.5" r="1" fill="currentColor" opacity="0.6"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#batik2)"/>
+        </svg>
+      </div>
+      
+      <div className="absolute top-1/3 left-16 w-20 h-20 opacity-25 animate-float" style={{animationDelay: '5s'}}>
+        <svg viewBox="0 0 100 100" className="w-full h-full text-accent">
+          <pattern id="batik3" x="0" y="0" width="25" height="25" patternUnits="userSpaceOnUse">
+            <path d="M12.5,5 Q20,12.5 12.5,20 Q5,12.5 12.5,5" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.4"/>
+            <circle cx="12.5" cy="12.5" r="2" fill="currentColor" opacity="0.3"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#batik3)"/>
+        </svg>
+      </div>
     </section>
   );
 };

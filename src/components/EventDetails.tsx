@@ -5,7 +5,7 @@ import venueImage from "@/assets/venue.jpg";
 
 const EventDetails = () => {
   const handleDirections = () => {
-    window.open('https://maps.google.com/?q=Garden+Pavilion+Rosewood+Estate', '_blank');
+    window.open('https://maps.google.com/?q=Masjid+Agung+Al-Ikhlas+Penajam+Paser+Utara', '_blank');
   };
 
   return (
@@ -56,9 +56,9 @@ const EventDetails = () => {
                 <div className="flex-1">
                   <h3 className="text-xl font-semibold text-foreground mb-2">Venue</h3>
                   <p className="text-lg text-muted-foreground mb-3">
-                    Garden Pavilion<br />
-                    Rosewood Estate<br />
-                    123 Romantic Lane, Love Valley, CA 90210
+                    Masjid Agung Al-Ikhlas<br />
+                    Penajam Paser Utara<br />
+                    Kalimantan Timur, Indonesia
                   </p>
                   <Button 
                     onClick={handleDirections}
