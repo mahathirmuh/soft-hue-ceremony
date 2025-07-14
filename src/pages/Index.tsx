@@ -1,6 +1,7 @@
 import HeroSection from "@/components/HeroSection";
 import CountdownTimer from "@/components/CountdownTimer";
 import EventDetails from "@/components/EventDetails";
+import LoveStoryCarousel from "@/components/LoveStoryCarousel";
 import PhotoGallery from "@/components/PhotoGallery";
 import BankTransfer from "@/components/BankTransfer";
 import RSVPForm from "@/components/RSVPForm";
@@ -15,6 +16,7 @@ const Index = () => {
       <HeroSection />
       <CountdownTimer />
       <EventDetails />
+      <LoveStoryCarousel />
       <PhotoGallery />
       <BankTransfer />
       <RSVPForm />

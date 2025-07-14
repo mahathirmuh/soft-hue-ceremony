@@ -12,15 +12,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { Heart, Send } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { supabase } from "@/integrations/supabase/client";
 
 const rsvpSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  attendance: z.enum(["yes", "no"], {
-    required_error: "Please select your attendance",
+  fullName: z.string().min(2, "Nama harus minimal 2 karakter"),
+  email: z.string().email("Silakan masukkan email yang valid"),
+  phone: z.string().min(10, "Silakan masukkan nomor telepon yang valid"),
+  attendance: z.enum(["attending", "not-attending"], {
+    required_error: "Silakan pilih kehadiran Anda",
   }),
-  guestCount: z.string().min(1, "Please select number of guests"),
+  guestCount: z.string().min(1, "Silakan pilih jumlah tamu"),
   dietaryRestrictions: z.string().optional(),
   message: z.string().optional(),
 });
@@ -29,6 +30,7 @@ type RSVPFormData = z.infer<typeof rsvpSchema>;
 
 const RSVPForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<RSVPFormData>({
@@ -44,13 +46,39 @@ const RSVPForm = () => {
     },
   });
 
-  const onSubmit = (data: RSVPFormData) => {
-    console.log("RSVP Data:", data);
-    setIsSubmitted(true);
-    toast({
-      title: "RSVP Submitted Successfully! 💕",
-      description: "Thank you for your response. We can't wait to celebrate with you!",
-    });
+  const onSubmit = async (data: RSVPFormData) => {
+    setIsLoading(true);
+    
+    try {
+      const { error } = await supabase
+        .from('rsvp_responses')
+        .insert([{
+          full_name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          attendance: data.attendance,
+          guest_count: parseInt(data.guestCount) || 0,
+          dietary_restrictions: data.dietaryRestrictions,
+          message: data.message,
+        }]);
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+      toast({
+        title: "RSVP Berhasil Dikirim! 💕",
+        description: "Terima kasih atas respons Anda. Kami tidak sabar untuk merayakan bersama Anda!",
+      });
+    } catch (error) {
+      console.error('Error submitting RSVP:', error);
+      toast({
+        title: "Error",
+        description: "Gagal mengirim RSVP. Silakan coba lagi.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSubmitted) {
@@ -60,17 +88,17 @@ const RSVPForm = () => {
           <Card className="p-12 bg-gradient-romantic shadow-elegant border-border/50">
             <Heart className="w-16 h-16 text-primary mx-auto mb-6 animate-float" />
             <h2 className="font-serif text-3xl font-bold text-foreground mb-4">
-              Thank You!
+              Terima Kasih!
             </h2>
             <p className="text-lg text-muted-foreground mb-6">
-              Your RSVP has been received. We're so excited to celebrate our special day with you!
+              RSVP Anda telah diterima. Kami sangat senang bisa merayakan hari istimewa kami bersama Anda!
             </p>
             <Button 
               onClick={() => setIsSubmitted(false)}
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
             >
-              Submit Another RSVP
+              Kirim RSVP Lain
             </Button>
           </Card>
         </div>
@@ -86,11 +114,11 @@ const RSVPForm = () => {
             RSVP
           </h2>
           <p className="text-lg text-muted-foreground">
-            Please let us know if you'll be joining us for our special day
+            Silakan beritahu kami apakah Anda akan bergabung dalam hari bahagia kami
           </p>
         </div>
 
-        <Card className="p-8 bg-card shadow-elegant border-border/50">
+        <Card className="p-8 bg-card shadow-elegant border-border/50 batik-accent">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <FormField
@@ -164,12 +192,12 @@ const RSVPForm = () => {
                         className="flex space-x-8"
                       >
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes" id="yes" className="border-primary text-primary" />
-                          <Label htmlFor="yes" className="text-foreground">Yes, I'll be there!</Label>
+                          <RadioGroupItem value="attending" id="attending" className="border-primary text-primary" />
+                          <Label htmlFor="attending" className="text-foreground">Ya, saya akan hadir!</Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="no" className="border-primary text-primary" />
-                          <Label htmlFor="no" className="text-foreground">Sorry, can't make it</Label>
+                          <RadioGroupItem value="not-attending" id="not-attending" className="border-primary text-primary" />
+                          <Label htmlFor="not-attending" className="text-foreground">Maaf, tidak bisa hadir</Label>
                         </div>
                       </RadioGroup>
                     </FormControl>
@@ -178,7 +206,7 @@ const RSVPForm = () => {
                 )}
               />
 
-              {form.watch("attendance") === "yes" && (
+              {form.watch("attendance") === "attending" && (
                 <div className="space-y-6 animate-fade-in">
                   <FormField
                     control={form.control}

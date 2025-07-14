@@ -56,11 +56,17 @@ All colors MUST be HSL.
     --gradient-romantic: linear-gradient(135deg, hsl(var(--primary-soft)), hsl(var(--secondary-soft)));
     --gradient-sunset: linear-gradient(180deg, hsl(var(--cream)), hsl(var(--primary-soft)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--primary-soft)) 50%, hsl(var(--secondary-soft)));
+    --gradient-batik: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--secondary)));
 
     /* Shadows */
     --shadow-soft: 0 4px 20px hsl(var(--primary) / 0.1);
     --shadow-elegant: 0 8px 30px hsl(var(--primary) / 0.15);
     --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.3);
+
+    /* Indonesian Batik Patterns */
+    --batik-primary: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4a574' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3Ccircle cx='50' cy='10' r='2'/%3E%3Ccircle cx='10' cy='50' r='2'/%3E%3Ccircle cx='50' cy='50' r='2'/%3E%3Cpath d='M30 15 L25 20 L30 25 L35 20 Z'/%3E%3Cpath d='M30 35 L25 40 L30 45 L35 40 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    --batik-floral: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4a574' fill-opacity='0.08'%3E%3Cpath d='M20 5 Q25 10 20 15 Q15 10 20 5 Z'/%3E%3Cpath d='M20 25 Q25 30 20 35 Q15 30 20 25 Z'/%3E%3Cpath d='M5 20 Q10 25 15 20 Q10 15 5 20 Z'/%3E%3Cpath d='M25 20 Q30 25 35 20 Q30 15 25 20 Z'/%3E%3C/g%3E%3C/svg%3E");
+    --batik-parang: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4a574' fill-opacity='0.06'%3E%3Cpath d='M0 20 Q20 0 40 20 Q60 40 80 20 L80 40 Q60 60 40 40 Q20 20 0 40 Z'/%3E%3Cpath d='M0 60 Q20 40 40 60 Q60 80 80 60 L80 80 Q60 100 40 80 Q20 60 0 80 Z'/%3E%3C/g%3E%3C/svg%3E");
 
     /* Animations */
     --transition-romantic: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -153,5 +159,40 @@ All colors MUST be HSL.
 
   .animate-twinkle {
     animation: twinkle 2s ease-in-out infinite alternate;
+  }
+
+  /* Batik utility classes */
+  .batik-pattern-primary {
+    background-image: var(--batik-primary);
+  }
+
+  .batik-pattern-floral {
+    background-image: var(--batik-floral);
+  }
+
+  .batik-pattern-parang {
+    background-image: var(--batik-parang);
+  }
+
+  .batik-border {
+    border-image: var(--gradient-batik) 1;
+    border-style: solid;
+    border-width: 2px;
+  }
+
+  .batik-accent {
+    position: relative;
+  }
+
+  .batik-accent::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--batik-primary);
+    opacity: 0.05;
+    pointer-events: none;
   }
 }

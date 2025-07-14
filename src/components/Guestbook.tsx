@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,43 +9,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { Heart, MessageCircle, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { supabase } from "@/integrations/supabase/client";
 
 const messageSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  name: z.string().min(2, "Nama harus minimal 2 karakter"),
+  message: z.string().min(10, "Pesan harus minimal 10 karakter"),
 });
 
 type MessageFormData = z.infer<typeof messageSchema>;
 
 interface Message {
-  id: number;
+  id: string;
   name: string;
   message: string;
-  timestamp: string;
+  created_at: string;
 }
 
 const Guestbook = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      name: "Indah Puspita Sari",
-      message: "Selamat menempuh kehidupan baru abanggg, terharu kakak.",
-      timestamp: "2 days ago"
-    },
-    {
-      id: 2,
-      name: "Muhammad Rafi'i",
-      message: "mantappsss jiwaa kak",
-      timestamp: "1 week ago"
-    },
-    {
-      id: 3,
-      name: "Fauziah",
-      message: "MasyaAllah kak, akhirrnya penantiaan panjang",
-      timestamp: "1 week ago"
-    }
-  ]);
-
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<MessageFormData>({
@@ -56,21 +38,61 @@ const Guestbook = () => {
     },
   });
 
-  const onSubmit = (data: MessageFormData) => {
-    const newMessage: Message = {
-      id: messages.length + 1,
-      name: data.name,
-      message: data.message,
-      timestamp: "Just now"
-    };
+  // Fetch messages from database
+  const fetchMessages = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('guestbook_messages')
+        .select('*')
+        .order('created_at', { ascending: false });
 
-    setMessages([newMessage, ...messages]);
-    form.reset();
+      if (error) throw error;
+      setMessages(data || []);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      toast({
+        title: "Error",
+        description: "Gagal memuat pesan. Silakan coba lagi.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Load messages on component mount
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const onSubmit = async (data: MessageFormData) => {
+    setIsLoading(true);
     
-    toast({
-      title: "Message Added! 💕",
-      description: "Thank you for your beautiful words!",
-    });
+    try {
+      const { error } = await supabase
+        .from('guestbook_messages')
+        .insert([{
+          name: data.name,
+          message: data.message,
+        }]);
+
+      if (error) throw error;
+
+      form.reset();
+      await fetchMessages(); // Refresh messages
+      
+      toast({
+        title: "Pesan Terkirim! 💕",
+        description: "Terima kasih atas ucapan dan doa baik Anda.",
+      });
+    } catch (error) {
+      console.error('Error submitting message:', error);
+      toast({
+        title: "Error",
+        description: "Gagal mengirim pesan. Silakan coba lagi.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -160,7 +182,15 @@ const Guestbook = () => {
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-3">
                     <h4 className="font-semibold text-foreground">{message.name}</h4>
-                    <span className="text-sm text-muted-foreground">{message.timestamp}</span>
+                    <span className="text-sm text-muted-foreground">
+                      {new Date(message.created_at).toLocaleDateString('id-ID', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
                   </div>
                   <p className="text-foreground leading-relaxed">{message.message}</p>
                 </div>
