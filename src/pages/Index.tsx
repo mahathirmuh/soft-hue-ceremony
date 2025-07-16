@@ -17,8 +17,17 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Admin Access Button */}
-      <div className="fixed top-4 right-4 z-50">
+      {/* Auth Access Buttons */}
+      <div className="fixed top-4 right-4 z-50 flex gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={() => navigate("/auth")}
+          className="bg-background/80 backdrop-blur-sm border-border/50 hover:bg-accent/50"
+        >
+          <Shield className="h-4 w-4 mr-2" />
+          Login
+        </Button>
         <Button 
           variant="outline" 
           size="sm" 
