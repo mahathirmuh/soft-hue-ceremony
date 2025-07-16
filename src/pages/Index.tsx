@@ -28,15 +28,6 @@ const Index = () => {
           <Shield className="h-4 w-4 mr-2" />
           Login
         </Button>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={() => navigate("/admin")}
-          className="bg-background/80 backdrop-blur-sm border-border/50 hover:bg-accent/50"
-        >
-          <Shield className="h-4 w-4 mr-2" />
-          Admin
-        </Button>
       </div>
 
       <AutoPlayMusic />
