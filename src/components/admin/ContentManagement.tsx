@@ -34,7 +34,7 @@ const ContentManagement = () => {
   const loadContent = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("website_content")
         .select("*")
         .single();
@@ -61,7 +61,7 @@ const ContentManagement = () => {
   const saveContent = async () => {
     setSaving(true);
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("website_content")
         .upsert(content, { onConflict: "id" });
 

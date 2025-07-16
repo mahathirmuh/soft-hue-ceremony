@@ -34,7 +34,7 @@ const Admin = () => {
       setUser(session.user);
 
       // Check if user has admin role
-      const { data: roles, error } = await supabase
+      const { data: roles, error } = await (supabase as any)
         .from("user_roles")
         .select("role")
         .eq("user_id", session.user.id)

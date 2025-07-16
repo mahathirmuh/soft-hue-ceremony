@@ -26,7 +26,7 @@ const UserManagement = () => {
 
   const loadUsers = async () => {
     try {
-      const { data: profiles, error } = await supabase
+      const { data: profiles, error } = await (supabase as any)
         .from("profiles")
         .select(`
           *,
@@ -49,7 +49,7 @@ const UserManagement = () => {
 
   const loadUserRoles = async () => {
     try {
-      const { data: roles, error } = await supabase
+      const { data: roles, error } = await (supabase as any)
         .from("user_roles")
         .select("*");
 
@@ -63,13 +63,13 @@ const UserManagement = () => {
   const assignRole = async (userId, role) => {
     try {
       // Remove existing roles for this user
-      await supabase
+      await (supabase as any)
         .from("user_roles")
         .delete()
         .eq("user_id", userId);
 
       // Add new role
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("user_roles")
         .insert([{ user_id: userId, role }]);
 
@@ -94,7 +94,7 @@ const UserManagement = () => {
 
   const removeRole = async (userId) => {
     try {
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from("user_roles")
         .delete()
         .eq("user_id", userId);
